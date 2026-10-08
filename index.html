@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>For You 💜</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Audio Element (Using your song file) -->
+  <audio id="bg-music" preload="auto">
+    <source src="song.mp3.mpeg" type="audio/mpeg">
+  </audio>
+
+  <div class="app-container">
+
+    <!-- SCREEN 1: Chat UI -->
+    <div class="screen active" id="chat-screen">
+      <div class="chat-header">
+        <div class="avatar">
+          <div class="avatar-heart">💜</div>
+        </div>
+        <div class="user-info">
+          <span class="username">Cutie</span>
+          <span class="status">Online</span>
+        </div>
+      </div>
+
+      <div class="chat-messages">
+        <div class="message-row right">
+          <div class="bubble purple">I made something for you...</div>
+          <span class="time">11:59 PM</span>
+        </div>
+
+        <div class="message-row left">
+          <div class="avatar-small">💜</div>
+          <div class="bubble dark">What is it? 👀</div>
+          <span class="time">12:00 AM</span>
+        </div>
+
+        <div class="message-row right">
+          <div class="bubble purple">You'll feel it... just wait :)</div>
+        </div>
+      </div>
+
+      <div class="chat-footer">
+        <!-- Silent navigation, audio will NOT play here -->
+        <button class="start-btn" onclick="goToScreen(2)">Tap to view 💕</button>
+      </div>
+    </div>
+
+    <!-- SCREEN 2: Card 1 -->
+    <div class="screen" id="card-screen-1">
+      <div class="stars-bg"></div>
+      <div class="card-content">
+        <div class="glowing-heart">💜</div>
+        <h1>I made<br>something<br>for you</h1>
+        <p class="subtitle">Something small... but straight from the heart :)</p>
+        <button class="action-btn" onclick="goToScreen(3)">Open it 💜</button>
+      </div>
+    </div>
+
+    <!-- SCREEN 3: Card 2 -->
+    <div class="screen" id="card-screen-2">
+      <div class="stars-bg"></div>
+      <div class="card-content">
+        <div class="glowing-heart pulse">💜</div>
+        <h1>Something I<br>wanted to<br>share</h1>
+        <button class="action-btn" onclick="startLyricsShow()">Show me 💜</button>
+      </div>
+    </div>
+
+    <!-- SCREEN 4: Timed Lyrics & Final Cat Reveal -->
+    <div class="screen" id="lyrics-screen">
+      <div class="stars-bg"></div>
+      
+      <div class="lyrics-container">
+        <p class="lyric-line" id="lyric-text"></p>
+      </div>
+
+      <div class="final-card" id="final-card">
+        <img class="cat-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjRnbXJ4ZjhhNWY3OHd1ZWVxcXZiZTF3dmZreDY2bm4wZTNocXdqeiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/MDJ9IbxxvDUQM/giphy.gif" alt="Cute Cat Hearts" />
+        <h2>This was meant for you 💕</h2>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,338 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: #05030a;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 420px;
+  height: 100vh;
+  max-height: 880px;
+  background: #0d0814;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(138, 43, 226, 0.25);
+}
+
+@media (min-width: 480px) {
+  .app-container {
+    height: 90vh;
+    border-radius: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Screens */
+.screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: scale(0.96);
+  z-index: 1;
+}
+
+.screen.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+  z-index: 2;
+}
+
+/* Dynamic Star Background */
+.stars-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, #1e0b36 0%, #07030d 100%);
+  z-index: -1;
+  overflow: hidden;
+}
+
+.stars-bg::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 40px 70px, #e8aaff, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 90px 40px, #fff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 160px 120px, #d8b4fe, rgba(0,0,0,0)),
+    radial-gradient(1.5px 1.5px at 230px 190px, #fff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 310px 80px, #c084fc, rgba(0,0,0,0));
+  background-repeat: repeat;
+  background-size: 350px 350px;
+  opacity: 0.6;
+  animation: floatStars 20s linear infinite;
+}
+
+@keyframes floatStars {
+  from { transform: translateY(0); }
+  to { transform: translateY(-350px); }
+}
+
+/* Screen 1: Chat UI */
+#chat-screen {
+  background-color: #0b0712;
+  padding: 20px;
+  justify-content: space-between;
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid #a855f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1e102d;
+}
+
+.avatar-small {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid #a855f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  background: #1e102d;
+  margin-right: 6px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.status {
+  font-size: 0.75rem;
+  color: #a1a1aa;
+}
+
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+  flex-grow: 1;
+}
+
+.message-row {
+  display: flex;
+  flex-direction: column;
+  max-width: 80%;
+}
+
+.message-row.right {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.message-row.left {
+  align-self: flex-start;
+  align-items: flex-start;
+}
+
+.bubble {
+  padding: 12px 18px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.bubble.purple {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  color: #ffffff;
+  border-bottom-right-radius: 4px;
+}
+
+.bubble.dark {
+  background: #1f1929;
+  color: #f4f4f5;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom-left-radius: 4px;
+}
+
+.time {
+  font-size: 0.68rem;
+  color: #71717a;
+  margin-top: 4px;
+  padding: 0 4px;
+}
+
+.chat-footer {
+  padding-top: 15px;
+}
+
+.start-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #9333ea, #6b21a8);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(147, 51, 234, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.start-btn:active {
+  transform: scale(0.98);
+}
+
+/* Card Content (Screens 2 & 3) */
+.card-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 24px;
+}
+
+.glowing-heart {
+  font-size: 3.8rem;
+  margin-bottom: 24px;
+  filter: drop-shadow(0 0 18px #a855f7);
+}
+
+.glowing-heart.pulse {
+  animation: heartPulse 1.5s infinite ease-in-out;
+}
+
+@keyframes heartPulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 18px #a855f7); }
+  50% { transform: scale(1.18); filter: drop-shadow(0 0 28px #c084fc); }
+}
+
+h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #cbd5e1;
+  margin-bottom: 40px;
+  max-width: 280px;
+  line-height: 1.5;
+}
+
+.action-btn {
+  padding: 14px 36px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #a855f7, #7e22ce);
+  color: white;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+  transition: all 0.25s ease;
+}
+
+.action-btn:active {
+  transform: scale(0.95);
+}
+
+/* Lyrics Screen */
+.lyrics-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  text-align: center;
+}
+
+.lyric-line {
+  font-size: 2.1rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(192, 132, 252, 0.8);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.lyric-line.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Final Reveal Card */
+.final-card {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+  padding: 20px;
+  text-align: center;
+}
+
+.final-card.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cat-gif {
+  width: 170px;
+  height: 170px;
+  object-fit: contain;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 0 12px rgba(236, 72, 153, 0.4));
+}
+
+.final-card h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 0 15px rgba(244, 114, 182, 0.6);
+}
