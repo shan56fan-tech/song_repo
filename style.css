@@ -6,67 +6,74 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-body {
+html, body {
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  overflow: hidden;
   background-color: #0b0712;
   color: #ffffff;
+}
+
+body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  min-height: 100dvh; /* Adapts dynamically to mobile address bars */
-  overflow: hidden;
 }
 
 .app-container {
   width: 100%;
   max-width: 430px;
-  height: 100vh;
+  height: 100%;
   height: 100dvh;
   position: relative;
   background: #130d1d;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
-/* Screens */
+/* Screen Layouts */
 .screen {
   display: none;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   width: 100%;
   height: 100%;
-  padding: 20px 20px calc(24px + env(safe-area-inset-bottom)) 20px; /* Safe padding for mobile bottom bar */
+  padding: 16px 20px calc(16px + env(safe-area-inset-bottom, 16px)) 20px;
   position: absolute;
   top: 0;
   left: 0;
   z-index: 1;
+  overflow: hidden;
 }
 
 .screen.active {
   display: flex;
 }
 
-/* Chat Screen UI */
+/* SCREEN 1: Chat UI */
 .chat-header {
   width: 100%;
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 16px;
+  padding: 10px 14px;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 16px;
   backdrop-filter: blur(10px);
+  flex-shrink: 0;
 }
 
 .avatar {
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: #2b1b3d;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 18px;
 }
 
 .user-info {
@@ -76,22 +83,24 @@ body {
 
 .username {
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .status {
-  font-size: 12px;
+  font-size: 11px;
   color: #a78bfa;
 }
 
+/* Chat Scroll Container (Prevents pushing button off-screen) */
 .chat-messages {
   width: 100%;
   flex: 1;
+  min-height: 0; 
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  justify-content: center;
-  padding: 10px 0;
+  gap: 10px;
+  padding: 12px 0;
 }
 
 .message-row {
@@ -111,9 +120,9 @@ body {
 }
 
 .bubble {
-  padding: 12px 16px;
-  border-radius: 18px;
-  font-size: 14px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  font-size: 13px;
   line-height: 1.4;
 }
 
@@ -135,26 +144,29 @@ body {
   margin-top: 4px;
 }
 
+/* Fixed Bottom Footer */
 .chat-footer {
   width: 100%;
-  margin-top: auto;
-  z-index: 10;
+  flex-shrink: 0;
+  padding-top: 8px;
 }
 
-/* Screen 2 & 3 Cards */
+/* SCREEN 2 & 3: Card Content */
 .card-content {
   flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   width: 100%;
+  padding: 10px 0;
 }
 
 .glowing-heart {
-  font-size: 60px;
-  margin-bottom: 20px;
+  font-size: 48px;
+  margin-bottom: 16px;
   filter: drop-shadow(0 0 15px #a78bfa);
 }
 
@@ -169,42 +181,44 @@ body {
 }
 
 h1 {
-  font-size: 32px;
+  font-size: 26px;
   font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 12px;
+  line-height: 1.25;
+  margin-bottom: 10px;
 }
 
 .subtitle {
-  font-size: 14px;
+  font-size: 13px;
   color: #cbd5e1;
-  margin-bottom: 30px;
+  margin-bottom: 16px;
 }
 
-/* Universal Button Styling (Guaranteed Visible on Mobile) */
+/* Button Styling Anchored in Viewport */
 .start-btn, .action-btn {
   width: 100%;
-  padding: 16px;
+  padding: 14px 20px;
   border: none;
   border-radius: 30px;
   background: linear-gradient(135deg, #8b5cf6, #6d28d9);
   color: #ffffff;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 4px 18px rgba(139, 92, 246, 0.4);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  z-index: 20;
+  flex-shrink: 0;
   position: relative;
+  z-index: 10;
 }
 
 .start-btn:active, .action-btn:active {
   transform: scale(0.97);
 }
 
-/* Screen 4: Lyrics and Final Reveal */
+/* SCREEN 4: Lyrics & Final Card */
 .lyrics-container {
   flex: 1;
+  min-height: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -213,7 +227,7 @@ h1 {
 }
 
 .lyric-line {
-  font-size: 26px;
+  font-size: 22px;
   font-weight: 600;
   line-height: 1.4;
   opacity: 0;
@@ -248,8 +262,12 @@ h1 {
 }
 
 .cat-gif {
-  width: 180px;
-  height: 180px;
+  width: 150px;
+  height: 150px;
   border-radius: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
+}
+
+.final-card h2 {
+  font-size: 20px;
 }
